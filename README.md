@@ -1,16 +1,12 @@
-# API Client Foundation for PHP 7.x
+# API Client middleware for PHP 7.x
 
-[![Build Status](https://travis-ci.org/php-api-clients/foundation.svg?branch=master)](https://travis-ci.org/php-api-clients/foundation)
-[![Latest Stable Version](https://poser.pugx.org/api-clients/foundation/v/stable.png)](https://packagist.org/packages/api-clients/foundation)
-[![Total Downloads](https://poser.pugx.org/api-clients/foundation/downloads.png)](https://packagist.org/packages/api-clients/foundation/stats)
-[![Code Coverage](https://scrutinizer-ci.com/g/php-api-clients/foundation/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/php-api-clients/foundation/?branch=master)
-[![License](https://poser.pugx.org/api-clients/foundation/license.png)](https://packagist.org/packages/api-clients/foundation)
-[![PHP 7 ready](http://php7ready.timesplinter.ch/php-api-clients/foundation/badge.svg)](https://appveyor-ci.org/php-api-clients/foundation)
+[![Build Status](https://travis-ci.org/php-api-clients/middleware.svg?branch=master)](https://travis-ci.org/php-api-clients/middleware)
+[![Latest Stable Version](https://poser.pugx.org/api-clients/middleware/v/stable.png)](https://packagist.org/packages/api-clients/middleware)
+[![Total Downloads](https://poser.pugx.org/api-clients/middleware/downloads.png)](https://packagist.org/packages/api-clients/middleware/stats)
+[![Code Coverage](https://scrutinizer-ci.com/g/php-api-clients/middleware/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/php-api-clients/middleware/?branch=master)
+[![License](https://poser.pugx.org/api-clients/middleware/license.png)](https://packagist.org/packages/api-clients/middleware)
+[![PHP 7 ready](http://php7ready.timesplinter.ch/php-api-clients/middleware/badge.svg)](https://appveyor-ci.org/php-api-clients/middleware)
 
-
-# Goals
-
-* Foundation for creating synchronous and asynchronous API clients 
 
 # License
 
