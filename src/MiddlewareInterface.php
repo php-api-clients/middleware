@@ -12,6 +12,14 @@ use React\Promise\CancellablePromiseInterface;
 interface MiddlewareInterface
 {
     /**
+     * Priority ranging from 0 to 1000. Where 1000 will be executed first on `pre` and 0 last on `pre`.
+     * For `post` the order is reversed.
+     *
+     * @return int
+     */
+    public function priority(): int;
+
+    /**
      * Return the processed $request via a fulfilled promise.
      * When implementing cache or other feature that returns a response, do it with a rejected promise.
      * If neither is possible, e.g. on some kind of failure, resolve the unaltered request.
