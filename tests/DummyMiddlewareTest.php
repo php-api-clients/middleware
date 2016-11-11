@@ -11,6 +11,15 @@ use React\EventLoop\Factory;
 
 class DummyMiddlewareTest extends TestCase
 {
+    public function testPriority()
+    {
+        $middleware = new DummyMiddleware();
+        $this->assertSame(
+            500,
+            $middleware->priority()
+        );
+    }
+
     public function testPre()
     {
         $middleware = new DummyMiddleware();
