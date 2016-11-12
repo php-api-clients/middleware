@@ -30,6 +30,12 @@ final class MiddlewareExecutioner
         $this->middlewares = $this->orderMiddlewares(...$middlewares);
     }
 
+    /**
+     * Sort the middlewares by priority
+     *
+     * @param MiddlewareInterface[] $middlewares
+     * @return array
+     */
     protected function orderMiddlewares(MiddlewareInterface ...$middlewares): array
     {
         usort($middlewares, function (MiddlewareInterface $left, MiddlewareInterface $right) {
