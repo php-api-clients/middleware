@@ -2,7 +2,7 @@
 
 namespace ApiClients\Tests\Foundation\Middleware;
 
-use ApiClients\Foundation\Middleware\MiddlewareExecutioner;
+use ApiClients\Foundation\Middleware\MiddlewareRunner;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use ApiClients\Tools\TestUtilities\TestCase;
 use function Clue\React\Block\await;
@@ -11,7 +11,7 @@ use GuzzleHttp\Psr7\Response;
 use Phake;
 use function React\Promise\resolve;
 
-class MiddlewareExecutionerTest extends TestCase
+class MiddlewareRunnerTest extends TestCase
 {
     public function testAll()
     {
@@ -41,7 +41,7 @@ class MiddlewareExecutionerTest extends TestCase
             $middlewareTwo,
         ];
 
-        $executioner = new MiddlewareExecutioner(...$args);
+        $executioner = new MiddlewareRunner(...$args);
         $executioner->pre($request);
         $executioner->post($response);
 

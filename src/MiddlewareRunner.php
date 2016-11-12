@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
 use function React\Promise\resolve;
 
-final class MiddlewareExecutioner
+final class MiddlewareRunner
 {
     /**
      * @var array
@@ -20,7 +20,7 @@ final class MiddlewareExecutioner
     private $middlewares;
 
     /**
-     * MiddlewareExecutioner constructor.
+     * MiddlewareRunner constructor.
      * @param array $options
      * @param MiddlewareInterface[] $middlewares
      */
