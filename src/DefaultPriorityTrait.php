@@ -9,6 +9,6 @@ trait DefaultPriorityTrait
      */
     public function priority(): int
     {
-        return 500;
+        return Priority::DEFAULT;
     }
 }
