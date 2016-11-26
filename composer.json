@@ -18,6 +18,9 @@
     "api-clients/test-utilities": "dev-master",
     "guzzlehttp/psr7": "^1.3"
   },
+  "suggest": {
+    "api-clients/middleware-log": "Log requests and their context"
+  },
   "autoload": {
     "psr-4": {
       "ApiClients\\Foundation\\Middleware\\": "src/"
