@@ -20,6 +20,7 @@
     "guzzlehttp/psr7": "^1.3"
   },
   "suggest": {
+    "api-clients/middleware-cache": "Cache requests with different strategies",
     "api-clients/middleware-log": "Log requests and their context",
     "api-clients/middleware-oauth1": "Sign requests with oauth1"
   },
