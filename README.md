@@ -22,6 +22,35 @@ It will check whether the created instance implements the `MiddlewareInterface`.
 Currently the only provided locator is the `ContainerLocator` which accepts a
 `Interop\Container\ContainerInterface` to fetch your middleware instances.
 
+## Example
+```php
+    $container = /* ... */;
+    $locator = new ContainerLocator($container);
+    $middlewares = [];
+    
+    $config = [
+        'middlewares' => [/*...*/]
+        'options' => [/*...*/]
+    ];
+       
+    foreach ($config['middlewares'] as $middleware) {
+       $middlewares[] = $locator->get($middleware);
+    }
+    
+    $runner = new MiddlewareRunner($config['options'], $middelwares);
+    
+    $runner->pre($request)->then(function ($request) use ($options) {
+        return resolve($this->browser->send(
+            $request
+        ));
+    }, function (ResponseInterface $response) {
+        return resolve($response);
+    })->then(function (ResponseInterface $response) use ($runner) {
+        return $runner->post($response);
+    });
+```
+
+
 # License
 
 The MIT License (MIT)
