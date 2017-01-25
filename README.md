@@ -7,6 +7,20 @@
 [![License](https://poser.pugx.org/api-clients/middleware/license.png)](https://packagist.org/packages/api-clients/middleware)
 [![PHP 7 ready](http://php7ready.timesplinter.ch/php-api-clients/middleware/badge.svg)](https://appveyor-ci.org/php-api-clients/middleware)
 
+This library contains the a async `MiddlewareRunner` used in our api clients. It 
+provides an interface for all middlewares. Middlewares are ordered by priority
+when they where added to the `MiddlewareRunner`. Order of middlewares with the
+same priority is not guaranteed.
+
+A number of traits are provided for your convenience, if your middleware
+implementation does not require all the methods defined in the 
+`MiddlewareInterface`.
+
+## Locator
+The locator can be used by your application to fetch middleware instances.
+It will check whether the created instance implements the `MiddlewareInterface`.
+Currently the only provided locator is the `ContainerLocator` which accepts a
+`Interop\Container\ContainerInterface` to fetch your middleware instances.
 
 # License
 
