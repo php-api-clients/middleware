@@ -24,7 +24,8 @@
     "api-clients/middleware-cache": "Cache requests with different strategies",
     "api-clients/middleware-log": "Log requests and their context",
     "api-clients/middleware-oauth1": "Sign requests with oauth1",
-    "api-clients/middleware-pool": "Pool the maximum concurrent requests"
+    "api-clients/middleware-pool": "Pool the maximum concurrent requests",
+    "container-interop/container-interop": "Add a ContainerInterface implementation to use the ContainerLocator"
   },
   "autoload": {
     "psr-4": {
