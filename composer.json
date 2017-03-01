@@ -16,7 +16,7 @@
     "react/promise": "^2.4"
   },
   "require-dev": {
-    "api-clients/test-utilities": "^1.0",
+    "api-clients/test-utilities": "^3.0",
     "container-interop/container-interop": "^1.1",
     "guzzlehttp/psr7": "^1.3"
   },
@@ -54,10 +54,6 @@
       "@ensure-installed",
       "phpunit --colors=always -c phpunit.xml.dist --coverage-text --coverage-html covHtml --coverage-clover ./build/logs/clover.xml"
     ],
-    "mutation": [
-      "@ensure-installed",
-      "if [ `php -m | grep xdebug | wc -l` -gt 0 ]; then humbug --ansi --incremental; fi"
-    ],
     "lint-php": [
       "@ensure-installed",
       "parallel-lint --exclude vendor ."
@@ -65,14 +61,12 @@
     "qa-all": [
       "@lint-php",
       "@cs",
-      "@unit",
-      "@mutation"
+      "@unit"
     ],
     "qa-all-coverage": [
       "@lint-php",
       "@cs",
-      "@unit-coverage",
-      "@mutation"
+      "@unit-coverage"
     ],
     "qa-windows": [
       "@lint-php",
