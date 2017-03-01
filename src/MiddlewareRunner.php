@@ -5,6 +5,8 @@ namespace ApiClients\Foundation\Middleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
+use Throwable;
+use function React\Promise\reject;
 use function React\Promise\resolve;
 
 final class MiddlewareRunner
@@ -79,6 +81,28 @@ final class MiddlewareRunner
             $responseMiddleware = $middleware;
             $promise = $promise->then(function (ResponseInterface $response) use ($responseMiddleware) {
                 return $responseMiddleware->post($response, $this->options);
+            });
+        }
+
+        return $promise;
+    }
+
+    /**
+     * @param Throwable $throwable
+     * @return CancellablePromiseInterface
+     */
+    public function error(
+        Throwable $throwable
+    ): CancellablePromiseInterface {
+
+        $promise = reject($throwable);
+
+        $this->middlewares = array_reverse($this->middlewares);
+
+        foreach ($this->middlewares as $middleware) {
+            $errorMiddleware = $middleware;
+            $promise = $promise->then(null, function (Throwable $throwable) use ($errorMiddleware) {
+                return reject($errorMiddleware->error($throwable, $this->options));
             });
         }
 
