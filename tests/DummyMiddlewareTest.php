@@ -1,13 +1,13 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ApiClients\Tests\Foundation\Middleware;
 
 use ApiClients\Tools\TestUtilities\TestCase;
-use function Clue\React\Block\await;
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\EventLoop\Factory;
+use function Clue\React\Block\await;
 
 class DummyMiddlewareTest extends TestCase
 {
@@ -43,6 +43,18 @@ class DummyMiddlewareTest extends TestCase
                 $middleware->post($response),
                 Factory::create()
             )
+        );
+    }
+
+    public function testError()
+    {
+        $middleware = new DummyMiddleware();
+        $exception = new Exception('Throwable or anything extending it');
+        self::expectException(Exception::class);
+        self::expectExceptionMessage('Throwable or anything extending it');
+        await(
+            $middleware->error($exception),
+            Factory::create()
         );
     }
 }

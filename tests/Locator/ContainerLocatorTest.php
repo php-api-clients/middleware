@@ -4,9 +4,10 @@ namespace ApiClients\Tests\Foundation\Middleware\Locator;
 
 use ApiClients\Foundation\Middleware\Locator\ContainerLocator;
 use ApiClients\Tests\Foundation\Middleware\DummyMiddleware;
+use ApiClients\Tools\TestUtilities\TestCase;
 use Interop\Container\ContainerInterface;
 
-class ContainerLocatorTest extends \PHPUnit_Framework_TestCase
+class ContainerLocatorTest extends TestCase
 {
     public function testGetSuccess()
     {

@@ -47,6 +47,8 @@ Currently the only provided locator is the `ContainerLocator` which accepts a
         return resolve($response);
     })->then(function (ResponseInterface $response) use ($runner) {
         return $runner->post($response);
+    })->otherwise(function (Throwable $throwable) use ($runner) {
+        return reject($runner->error($throwable));
     });
 ```
 

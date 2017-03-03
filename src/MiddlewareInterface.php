@@ -5,6 +5,7 @@ namespace ApiClients\Foundation\Middleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
+use Throwable;
 
 /**
  * Middleware, when a new request is made an instance specifically for that request is made for each request.
@@ -38,4 +39,14 @@ interface MiddlewareInterface
      * @return CancellablePromiseInterface
      */
     public function post(ResponseInterface $response, array $options = []): CancellablePromiseInterface;
+
+    /**
+     * Transform the throwable into another throwable or exception,
+     * but never turn it into a successful promise again.
+     *
+     * @param Throwable $throwable
+     * @param array $options
+     * @return CancellablePromiseInterface
+     */
+    public function error(Throwable $throwable, array $options = []): CancellablePromiseInterface;
 }

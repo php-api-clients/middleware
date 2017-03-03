@@ -27,6 +27,3 @@ unit-coverage:
 
 ci-coverage: init
 	composer ci-coverage
-
-mutation:
-	composer mutation
