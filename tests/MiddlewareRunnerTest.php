@@ -9,6 +9,8 @@ use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Phake;
+use React\EventLoop\Factory;
+use Throwable;
 use function Clue\React\Block\await;
 use function React\Promise\reject;
 use function React\Promise\resolve;
@@ -17,6 +19,7 @@ class MiddlewareRunnerTest extends TestCase
 {
     public function testAll()
     {
+        $loop = Factory::create();
         $request = new Request('GET', 'https://example.com/');
         $response = new Response(200);
         $exception = new Exception();
@@ -48,9 +51,13 @@ class MiddlewareRunnerTest extends TestCase
         ];
 
         $executioner = new MiddlewareRunner(...$args);
-        $executioner->pre($request);
-        $executioner->post($response);
-        $executioner->error($exception);
+        self::assertSame($request, await($executioner->pre($request), $loop));
+        self::assertSame($response, await($executioner->post($response), $loop));
+        try {
+            await($executioner->error($exception), $loop);
+        } catch (Throwable $throwable) {
+            self::assertSame($exception, $throwable);
+        }
 
         Phake::inOrder(
             Phake::verify($middlewareOne)->pre($request, $options),
