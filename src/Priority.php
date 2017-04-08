@@ -6,7 +6,7 @@ final class Priority
 {
     const FIRST       = 1000;
     const SECOND      = 999;
-    const THIRD       = 999;
+    const THIRD       = 998;
     const EARLY       = 750;
     const DEFAULT     = 500;
     const LATE        = 250;
