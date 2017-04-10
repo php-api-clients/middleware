@@ -5,7 +5,7 @@ namespace ApiClients\Tests\Foundation\Middleware\Locator;
 use ApiClients\Foundation\Middleware\Locator\ContainerLocator;
 use ApiClients\Tests\Foundation\Middleware\DummyMiddleware;
 use ApiClients\Tools\TestUtilities\TestCase;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class ContainerLocatorTest extends TestCase
 {

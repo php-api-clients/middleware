@@ -20,7 +20,7 @@ implementation does not require all the methods defined in the
 The locator can be used by your application to fetch middleware instances.
 It will check whether the created instance implements the `MiddlewareInterface`.
 Currently the only provided locator is the `ContainerLocator` which accepts a
-`Interop\Container\ContainerInterface` to fetch your middleware instances.
+`Psr\Container\ContainerInterface` to fetch your middleware instances.
 
 ## Example
 ```php
