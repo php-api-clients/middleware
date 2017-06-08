@@ -16,6 +16,8 @@ interface MiddlewareInterface
      * Priority ranging from 0 to 1000. Where 1000 will be executed first on `pre` and 0 last on `pre`.
      * For `post` the order is reversed.
      *
+     * @deprecated Use annotations for more finegrained control
+     *
      * @return int
      */
     public function priority(): int;
