@@ -7,9 +7,9 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
+use ReflectionMethod;
 use Throwable;
 use function React\Promise\reject;
-use ReflectionMethod;
 use function React\Promise\resolve;
 
 final class MiddlewareRunner
