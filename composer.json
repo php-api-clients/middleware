@@ -18,15 +18,15 @@
   },
   "require-dev": {
     "api-clients/test-utilities": "^3.0",
-    "container-interop/container-interop": "^1.1",
-    "guzzlehttp/psr7": "^1.3"
+    "guzzlehttp/psr7": "^1.3",
+    "psr/container": "^1.0"
   },
   "suggest": {
     "api-clients/middleware-cache": "Cache requests with different strategies",
     "api-clients/middleware-log": "Log requests and their context",
     "api-clients/middleware-oauth1": "Sign requests with oauth1",
     "api-clients/middleware-pool": "Pool the maximum concurrent requests",
-    "container-interop/container-interop": "Add a ContainerInterface implementation to use the ContainerLocator"
+    "psr/container": "Add a ContainerInterface implementation to use the ContainerLocator"
   },
   "autoload": {
     "psr-4": {

@@ -3,7 +3,7 @@
 namespace ApiClients\Foundation\Middleware\Locator;
 
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 final class ContainerLocator implements Locator
 {
