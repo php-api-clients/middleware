@@ -13,8 +13,11 @@ trait PreTrait
      * @param array $options
      * @return CancellablePromiseInterface
      */
-    public function pre(RequestInterface $request, array $options = []): CancellablePromiseInterface
-    {
+    public function pre(
+        RequestInterface $request,
+        array $options = [],
+        string $transactionId = null
+    ): CancellablePromiseInterface {
         return resolve($request);
     }
 }
