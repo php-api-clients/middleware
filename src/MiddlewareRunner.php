@@ -60,12 +60,13 @@ final class MiddlewareRunner
     private function getPriority(string $method, MiddlewareInterface $middleware): int
     {
         $methodReflection = new ReflectionMethod($middleware, $method);
+        /** @var PriorityAnnotation $annotation */
         $annotation = $this->annotationReader->getMethodAnnotation($methodReflection, PriorityAnnotation::class);
 
         if ($annotation !== null &&
             get_class($annotation) === PriorityAnnotation::class
         ) {
-            return $annotation->property;
+            return $annotation->priority();
         }
 
         return $middleware->priority();
@@ -104,7 +105,6 @@ final class MiddlewareRunner
 
         $middlewares = $this->middlewares;
         $middlewares = $this->orderMiddlewares('post', ...$middlewares);
-        $middlewares = array_reverse($middlewares);
 
         foreach ($middlewares as $middleware) {
             $responseMiddleware = $middleware;
@@ -123,12 +123,10 @@ final class MiddlewareRunner
     public function error(
         Throwable $throwable
     ): CancellablePromiseInterface {
-
         $promise = reject($throwable);
 
         $middlewares = $this->middlewares;
         $middlewares = $this->orderMiddlewares('error', ...$middlewares);
-        $middlewares = array_reverse($middlewares);
 
         foreach ($middlewares as $middleware) {
             $errorMiddleware = $middleware;

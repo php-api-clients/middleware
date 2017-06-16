@@ -63,9 +63,9 @@ class MiddlewareRunnerTest extends TestCase
             Phake::verify($middlewareOne)->pre($request, $options),
             Phake::verify($middlewareTwo)->pre($request, $options),
             Phake::verify($middlewareThree)->pre($request, $options),
-            Phake::verify($middlewareThree)->post($response, $options),
-            Phake::verify($middlewareTwo)->post($response, $options),
             Phake::verify($middlewareOne)->post($response, $options),
+            Phake::verify($middlewareTwo)->post($response, $options),
+            Phake::verify($middlewareThree)->post($response, $options),
             Phake::verify($middlewareOne)->error($exception, $options),
             Phake::verify($middlewareTwo)->error($exception, $options),
             Phake::verify($middlewareThree)->error($exception, $options)
