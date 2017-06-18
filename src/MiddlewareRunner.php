@@ -30,6 +30,11 @@ final class MiddlewareRunner
     private $annotationReader;
 
     /**
+     * @var string
+     */
+    private $id;
+
+    /**
      * MiddlewareRunner constructor.
      * @param array $options
      * @param MiddlewareInterface[] $middlewares
@@ -37,6 +42,8 @@ final class MiddlewareRunner
     public function __construct(array $options, MiddlewareInterface ...$middlewares)
     {
         $this->options = $options;
+        $this->middlewares = $this->orderMiddlewares(...$middlewares);
+        $this->id = bin2hex(random_bytes(32));
         $this->middlewares = $middlewares;
         $this->annotationReader = new AnnotationReader();
     }
@@ -87,7 +94,7 @@ final class MiddlewareRunner
         foreach ($middlewares as $middleware) {
             $requestMiddleware = $middleware;
             $promise = $promise->then(function (RequestInterface $request) use ($requestMiddleware) {
-                return $requestMiddleware->pre($request, $this->options);
+                return $requestMiddleware->pre($request, $this->options, $this->id);
             });
         }
 
@@ -109,7 +116,7 @@ final class MiddlewareRunner
         foreach ($middlewares as $middleware) {
             $responseMiddleware = $middleware;
             $promise = $promise->then(function (ResponseInterface $response) use ($responseMiddleware) {
-                return $responseMiddleware->post($response, $this->options);
+                return $responseMiddleware->post($response, $this->options, $this->id);
             });
         }
 
@@ -131,7 +138,7 @@ final class MiddlewareRunner
         foreach ($middlewares as $middleware) {
             $errorMiddleware = $middleware;
             $promise = $promise->then(null, function (Throwable $throwable) use ($errorMiddleware) {
-                return reject($errorMiddleware->error($throwable, $this->options));
+                return reject($errorMiddleware->error($throwable, $this->options, $this->id));
             });
         }
 

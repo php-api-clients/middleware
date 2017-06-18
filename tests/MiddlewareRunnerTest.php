@@ -7,6 +7,7 @@ use ApiClients\Foundation\Middleware\MiddlewareRunner;
 use ApiClients\Tests\Foundation\Middleware\TestMiddlewares\OneMiddleware;
 use ApiClients\Tests\Foundation\Middleware\TestMiddlewares\TwoMiddleware;
 use ApiClients\Tools\TestUtilities\TestCase;
+use Closure;
 use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -29,22 +30,10 @@ class MiddlewareRunnerTest extends TestCase
 
         $middlewareOne = Phake::mock(MiddlewareInterface::class);
         Phake::when($middlewareOne)->priority()->thenReturn(1000);
-        Phake::when($middlewareOne)->pre($request, $options)->thenReturn(resolve($request));
-        Phake::when($middlewareOne)->post($response, $options)->thenReturn(resolve($response));
-        Phake::when($middlewareOne)->error($exception, $options)->thenReturn(reject($exception));
-
         $middlewareTwo = Phake::mock(MiddlewareInterface::class);
         Phake::when($middlewareTwo)->priority()->thenReturn(500);
-        Phake::when($middlewareTwo)->pre($request, $options)->thenReturn(resolve($request));
-        Phake::when($middlewareTwo)->post($response, $options)->thenReturn(resolve($response));
-        Phake::when($middlewareTwo)->error($exception, $options)->thenReturn(reject($exception));
-
         $middlewareThree = Phake::mock(MiddlewareInterface::class);
         Phake::when($middlewareThree)->priority()->thenReturn(0);
-        Phake::when($middlewareThree)->pre($request, $options)->thenReturn(resolve($request));
-        Phake::when($middlewareThree)->post($response, $options)->thenReturn(resolve($response));
-        Phake::when($middlewareThree)->error($exception, $options)->thenReturn(reject($exception));
-
         $args = [
             $options,
             $middlewareThree,
@@ -53,6 +42,23 @@ class MiddlewareRunnerTest extends TestCase
         ];
 
         $executioner = new MiddlewareRunner(...$args);
+        $id = Closure::bind(function ($executioner) {
+            return $executioner->id;
+        }, null, MiddlewareRunner::class)($executioner);
+
+        Phake::when($middlewareOne)->pre($request, $options, $id)->thenReturn(resolve($request));
+        Phake::when($middlewareOne)->post($response, $options, $id)->thenReturn(resolve($response));
+        Phake::when($middlewareOne)->error($exception, $options, $id)->thenReturn(reject($exception));
+
+        Phake::when($middlewareTwo)->pre($request, $options, $id)->thenReturn(resolve($request));
+        Phake::when($middlewareTwo)->post($response, $options, $id)->thenReturn(resolve($response));
+        Phake::when($middlewareTwo)->error($exception, $options, $id)->thenReturn(reject($exception));
+
+        Phake::when($middlewareThree)->pre($request, $options, $id)->thenReturn(resolve($request));
+        Phake::when($middlewareThree)->post($response, $options, $id)->thenReturn(resolve($response));
+        Phake::when($middlewareThree)->error($exception, $options, $id)->thenReturn(reject($exception));
+
+
         self::assertSame($request, await($executioner->pre($request), $loop));
         self::assertSame($response, await($executioner->post($response), $loop));
         try {

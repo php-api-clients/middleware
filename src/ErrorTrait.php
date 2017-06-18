@@ -14,8 +14,11 @@ trait ErrorTrait
      * @param array $options
      * @return CancellablePromiseInterface
      */
-    public function error(Throwable $throwable, array $options = []): CancellablePromiseInterface
-    {
+    public function error(
+        Throwable $throwable,
+        array $options = [],
+        string $transactionId = null
+    ): CancellablePromiseInterface {
         return reject($throwable);
     }
 }
