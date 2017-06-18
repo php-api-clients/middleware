@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace ApiClients\Tests\Foundation\Middleware\Locator;
 
@@ -53,7 +53,7 @@ class ContainerLocatorTest extends TestCase
         $container->expects($this->once())
             ->method('has')
             ->with(\stdClass::class)
-            ->willReturn(new \stdClass);
+            ->willReturn(new \stdClass());
 
         $locator = new ContainerLocator($container);
         $locator->get(\stdClass::class);

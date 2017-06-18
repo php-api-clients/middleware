@@ -56,7 +56,6 @@ class MiddlewareRunnerTest extends TestCase
         Phake::when($middlewareThree)->post($response, $options, $id)->thenReturn(resolve($response));
         Phake::when($middlewareThree)->error($exception, $options, $id)->thenReturn(reject($exception));
 
-
         self::assertSame($request, await($executioner->pre($request), $loop));
         self::assertSame($response, await($executioner->post($response), $loop));
         try {

@@ -17,7 +17,7 @@ final class ContainerLocator implements Locator
         $this->container = $container;
     }
 
-    public function get(string $middleware) : MiddlewareInterface
+    public function get(string $middleware): MiddlewareInterface
     {
         if ($this->container->has($middleware)) {
             $instance = $this->container->get($middleware);

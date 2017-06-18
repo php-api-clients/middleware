@@ -2,16 +2,16 @@
 
 namespace ApiClients\Foundation\Middleware;
 
-use Throwable;
 use React\Promise\CancellablePromiseInterface;
+use Throwable;
 
 use function React\Promise\reject;
 
 trait ErrorTrait
 {
     /**
-     * @param Throwable $throwable
-     * @param array $options
+     * @param  Throwable                   $throwable
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      */
     public function error(
