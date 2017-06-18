@@ -42,7 +42,6 @@ final class MiddlewareRunner
     public function __construct(array $options, MiddlewareInterface ...$middlewares)
     {
         $this->options = $options;
-        $this->middlewares = $this->orderMiddlewares(...$middlewares);
         $this->id = bin2hex(random_bytes(32));
         $this->middlewares = $middlewares;
         $this->annotationReader = new AnnotationReader();
