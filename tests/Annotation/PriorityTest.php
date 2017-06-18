@@ -11,6 +11,6 @@ class PriorityTest extends TestCase
     public function testPriority()
     {
         $priority = new PriorityAnnotation([Priority::FIRST]);
-        self::assertSame(Priority::FIRST, $priority->property());
+        self::assertSame(Priority::FIRST, $priority->priority());
     }
 }

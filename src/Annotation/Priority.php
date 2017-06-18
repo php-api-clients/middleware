@@ -24,7 +24,7 @@ final class Priority
     /**
      * @return int
      */
-    public function property(): int
+    public function priority(): int
     {
         return $this->priority;
     }
