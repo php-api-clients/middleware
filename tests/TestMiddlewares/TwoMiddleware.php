@@ -30,7 +30,7 @@ class TwoMiddleware implements MiddlewareInterface
      * @param array $options
      * @return CancellablePromiseInterface
      */
-    public function pre(RequestInterface $request, array $options = []): CancellablePromiseInterface
+    public function pre(RequestInterface $request, array $options = [], string $transactionId = null): CancellablePromiseInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':pre';
@@ -42,7 +42,7 @@ class TwoMiddleware implements MiddlewareInterface
      * @param array $options
      * @return CancellablePromiseInterface
      */
-    public function post(ResponseInterface $response, array $options = []): CancellablePromiseInterface
+    public function post(ResponseInterface $response, array $options = [], string $transactionId = null): CancellablePromiseInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':post';
@@ -54,7 +54,7 @@ class TwoMiddleware implements MiddlewareInterface
      * @param array $options
      * @return CancellablePromiseInterface
      */
-    public function error(Throwable $throwable, array $options = []): CancellablePromiseInterface
+    public function error(Throwable $throwable, array $options = [], string $transactionId = null): CancellablePromiseInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':error';

@@ -68,15 +68,15 @@ class MiddlewareRunnerTest extends TestCase
         }
 
         Phake::inOrder(
-            Phake::verify($middlewareOne)->pre($request, $options),
-            Phake::verify($middlewareTwo)->pre($request, $options),
-            Phake::verify($middlewareThree)->pre($request, $options),
-            Phake::verify($middlewareOne)->post($response, $options),
-            Phake::verify($middlewareTwo)->post($response, $options),
-            Phake::verify($middlewareThree)->post($response, $options),
-            Phake::verify($middlewareOne)->error($exception, $options),
-            Phake::verify($middlewareTwo)->error($exception, $options),
-            Phake::verify($middlewareThree)->error($exception, $options)
+            Phake::verify($middlewareOne)->pre($request, $options, $id),
+            Phake::verify($middlewareTwo)->pre($request, $options, $id),
+            Phake::verify($middlewareThree)->pre($request, $options, $id),
+            Phake::verify($middlewareOne)->post($response, $options, $id),
+            Phake::verify($middlewareTwo)->post($response, $options, $id),
+            Phake::verify($middlewareThree)->post($response, $options, $id),
+            Phake::verify($middlewareOne)->error($exception, $options, $id),
+            Phake::verify($middlewareTwo)->error($exception, $options, $id),
+            Phake::verify($middlewareThree)->error($exception, $options, $id)
         );
     }
 
