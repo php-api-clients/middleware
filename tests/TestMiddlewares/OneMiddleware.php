@@ -33,8 +33,11 @@ class OneMiddleware implements MiddlewareInterface
      * @return CancellablePromiseInterface
      * @PriorityAnnotation(Priority::LAST);
      */
-    public function pre(RequestInterface $request, array $options = [], string $transactionId = null): CancellablePromiseInterface
-    {
+    public function pre(
+        RequestInterface $request,
+        array $options = [],
+        string $transactionId = null
+    ): CancellablePromiseInterface {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':pre';
 
@@ -47,8 +50,11 @@ class OneMiddleware implements MiddlewareInterface
      * @return CancellablePromiseInterface
      * @PriorityAnnotation(Priority::FIRST);
      */
-    public function post(ResponseInterface $response, array $options = [], string $transactionId = null): CancellablePromiseInterface
-    {
+    public function post(
+        ResponseInterface $response,
+        array $options = [],
+        string $transactionId = null
+    ): CancellablePromiseInterface {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':post';
 
@@ -61,8 +67,11 @@ class OneMiddleware implements MiddlewareInterface
      * @return CancellablePromiseInterface
      * @PriorityAnnotation(Priority::FIRST);
      */
-    public function error(Throwable $throwable, array $options = [], string $transactionId = null): CancellablePromiseInterface
-    {
+    public function error(
+        Throwable $throwable,
+        array $options = [],
+        string $transactionId = null
+    ): CancellablePromiseInterface {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':error';
 
