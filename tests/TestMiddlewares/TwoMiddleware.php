@@ -26,38 +26,41 @@ class TwoMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @param RequestInterface $request
-     * @param array $options
+     * @param  RequestInterface            $request
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      */
     public function pre(RequestInterface $request, array $options = [], string $transactionId = null): CancellablePromiseInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':pre';
+
         return resolve($request);
     }
 
     /**
-     * @param ResponseInterface $response
-     * @param array $options
+     * @param  ResponseInterface           $response
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      */
     public function post(ResponseInterface $response, array $options = [], string $transactionId = null): CancellablePromiseInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':post';
+
         return resolve($response);
     }
 
     /**
-     * @param Throwable $throwable
-     * @param array $options
+     * @param  Throwable                   $throwable
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      */
     public function error(Throwable $throwable, array $options = [], string $transactionId = null): CancellablePromiseInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':error';
+
         return reject($throwable);
     }
 }

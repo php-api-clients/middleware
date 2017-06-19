@@ -3,9 +3,9 @@
 namespace ApiClients\Tests\Foundation\Middleware\TestMiddlewares;
 
 use ApiClients\Foundation\Middleware\Annotation\Priority as PriorityAnnotation;
-use ApiClients\Foundation\Middleware\Priority;
 use ApiClients\Foundation\Middleware\DefaultPriorityTrait;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
+use ApiClients\Foundation\Middleware\Priority;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
@@ -28,8 +28,8 @@ class OneMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @param RequestInterface $request
-     * @param array $options
+     * @param  RequestInterface            $request
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      * @PriorityAnnotation(Priority::LAST);
      */
@@ -37,12 +37,13 @@ class OneMiddleware implements MiddlewareInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':pre';
+
         return resolve($request);
     }
 
     /**
-     * @param ResponseInterface $response
-     * @param array $options
+     * @param  ResponseInterface           $response
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      * @PriorityAnnotation(Priority::FIRST);
      */
@@ -50,12 +51,13 @@ class OneMiddleware implements MiddlewareInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':post';
+
         return resolve($response);
     }
 
     /**
-     * @param Throwable $throwable
-     * @param array $options
+     * @param  Throwable                   $throwable
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      * @PriorityAnnotation(Priority::FIRST);
      */
@@ -63,6 +65,7 @@ class OneMiddleware implements MiddlewareInterface
     {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':error';
+
         return reject($throwable);
     }
 }

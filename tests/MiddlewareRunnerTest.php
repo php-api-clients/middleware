@@ -105,7 +105,6 @@ class MiddlewareRunnerTest extends TestCase
             self::assertSame($exception, $throwable);
         }
 
-
         $calls = array_merge_recursive($middlewareOne->getCalls(), $middlewareTwo->getCalls());
         ksort($calls);
 

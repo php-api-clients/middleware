@@ -48,37 +48,6 @@ final class MiddlewareRunner
     }
 
     /**
-     * Sort the middlewares by priority
-     *
-     * @param string $method
-     * @param MiddlewareInterface[] $middlewares
-     * @return array
-     */
-    protected function orderMiddlewares(string $method, MiddlewareInterface ...$middlewares): array
-    {
-        usort($middlewares, function (MiddlewareInterface $left, MiddlewareInterface $right) use ($method) {
-            return $this->getPriority($method, $right) <=> $this->getPriority($method, $left);
-        });
-
-        return $middlewares;
-    }
-
-    private function getPriority(string $method, MiddlewareInterface $middleware): int
-    {
-        $methodReflection = new ReflectionMethod($middleware, $method);
-        /** @var PriorityAnnotation $annotation */
-        $annotation = $this->annotationReader->getMethodAnnotation($methodReflection, PriorityAnnotation::class);
-
-        if ($annotation !== null &&
-            get_class($annotation) === PriorityAnnotation::class
-        ) {
-            return $annotation->priority();
-        }
-
-        return $middleware->priority();
-    }
-
-    /**
      * @param  RequestInterface            $request
      * @return CancellablePromiseInterface
      */
@@ -147,15 +116,31 @@ final class MiddlewareRunner
     /**
      * Sort the middlewares by priority.
      *
+     * @param  string                $method
      * @param  MiddlewareInterface[] $middlewares
      * @return array
      */
-    protected function orderMiddlewares(MiddlewareInterface ...$middlewares): array
+    protected function orderMiddlewares(string $method, MiddlewareInterface ...$middlewares): array
     {
-        usort($middlewares, function (MiddlewareInterface $left, MiddlewareInterface $right) {
-            return $right->priority() <=> $left->priority();
+        usort($middlewares, function (MiddlewareInterface $left, MiddlewareInterface $right) use ($method) {
+            return $this->getPriority($method, $right) <=> $this->getPriority($method, $left);
         });
 
         return $middlewares;
+    }
+
+    private function getPriority(string $method, MiddlewareInterface $middleware): int
+    {
+        $methodReflection = new ReflectionMethod($middleware, $method);
+        /** @var PriorityAnnotation $annotation */
+        $annotation = $this->annotationReader->getMethodAnnotation($methodReflection, PriorityAnnotation::class);
+
+        if ($annotation !== null &&
+            get_class($annotation) === PriorityAnnotation::class
+        ) {
+            return $annotation->priority();
+        }
+
+        return $middleware->priority();
     }
 }
