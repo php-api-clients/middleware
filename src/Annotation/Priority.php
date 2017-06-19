@@ -6,7 +6,7 @@ namespace ApiClients\Foundation\Middleware\Annotation;
  * @Annotation
  * @Target({"METHOD"})
  */
-final class Priority
+final class Priority implements PriorityInterface
 {
     /**
      * @var int
