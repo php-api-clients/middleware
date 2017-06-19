@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2e31ee763fbb9a82426fd3ee9b9cce5",
+    "content-hash": "df734221de89c3196c4a6b6f9f3bd955",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -223,6 +223,42 @@
                 "promises"
             ],
             "time": "2017-03-25T12:08:31+00:00"
+        },
+        {
+            "name": "wyrihaximus/doctrine-annotation-autoloader",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WyriHaximus/php-doctrine-annotation-autoloader.git",
+                "reference": "335d62f68953428c1637a45615d8f4aebe9479b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WyriHaximus/php-doctrine-annotation-autoloader/zipball/335d62f68953428c1637a45615d8f4aebe9479b5",
+                "reference": "335d62f68953428c1637a45615d8f4aebe9479b5",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com"
+                }
+            ],
+            "description": "Request middleware",
+            "time": "2017-06-19 14:08:21"
         }
     ],
     "packages-dev": [
@@ -2888,7 +2924,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "wyrihaximus/doctrine-annotation-autoloader": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

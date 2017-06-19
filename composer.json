@@ -14,7 +14,8 @@
     "php": "^7.0",
     "doctrine/annotations": "^1.4",
     "psr/http-message": "^1.0",
-    "react/promise": "^2.4"
+    "react/promise": "^2.4",
+    "wyrihaximus/doctrine-annotation-autoloader": "dev-master"
   },
   "require-dev": {
     "api-clients/test-utilities": "^4.1",
@@ -31,10 +32,7 @@
   "autoload": {
     "psr-4": {
       "ApiClients\\Foundation\\Middleware\\": "src/"
-    },
-    "files": [
-      "src/bootstrap.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
