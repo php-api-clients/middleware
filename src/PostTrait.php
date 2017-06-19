@@ -9,8 +9,8 @@ use function React\Promise\resolve;
 trait PostTrait
 {
     /**
-     * @param ResponseInterface $response
-     * @param array $options
+     * @param  ResponseInterface           $response
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      */
     public function post(

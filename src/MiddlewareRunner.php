@@ -36,7 +36,7 @@ final class MiddlewareRunner
 
     /**
      * MiddlewareRunner constructor.
-     * @param array $options
+     * @param array                 $options
      * @param MiddlewareInterface[] $middlewares
      */
     public function __construct(array $options, MiddlewareInterface ...$middlewares)
@@ -79,7 +79,7 @@ final class MiddlewareRunner
     }
 
     /**
-     * @param RequestInterface $request
+     * @param  RequestInterface            $request
      * @return CancellablePromiseInterface
      */
     public function pre(
@@ -101,7 +101,7 @@ final class MiddlewareRunner
     }
 
     /**
-     * @param ResponseInterface $response
+     * @param  ResponseInterface           $response
      * @return CancellablePromiseInterface
      */
     public function post(
@@ -123,7 +123,7 @@ final class MiddlewareRunner
     }
 
     /**
-     * @param Throwable $throwable
+     * @param  Throwable                   $throwable
      * @return CancellablePromiseInterface
      */
     public function error(
@@ -142,5 +142,20 @@ final class MiddlewareRunner
         }
 
         return $promise;
+    }
+
+    /**
+     * Sort the middlewares by priority.
+     *
+     * @param  MiddlewareInterface[] $middlewares
+     * @return array
+     */
+    protected function orderMiddlewares(MiddlewareInterface ...$middlewares): array
+    {
+        usort($middlewares, function (MiddlewareInterface $left, MiddlewareInterface $right) {
+            return $right->priority() <=> $left->priority();
+        });
+
+        return $middlewares;
     }
 }

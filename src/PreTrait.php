@@ -9,8 +9,8 @@ use function React\Promise\resolve;
 trait PreTrait
 {
     /**
-     * @param RequestInterface $request
-     * @param array $options
+     * @param  RequestInterface            $request
+     * @param  array                       $options
      * @return CancellablePromiseInterface
      */
     public function pre(

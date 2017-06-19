@@ -9,9 +9,9 @@ interface Locator
     /**
      * Returns an instance of the requested middleware.
      *
-     * @param string $middleware
+     * @param  string                     $middleware
      * @throws InvalidMiddlewareException when instance cannot be created
      * @return MiddlewareInterface
      */
-    public function get(string $middleware) : MiddlewareInterface;
+    public function get(string $middleware): MiddlewareInterface;
 }

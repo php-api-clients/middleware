@@ -27,9 +27,9 @@ interface MiddlewareInterface
      * When implementing cache or other feature that returns a response, do it with a rejected promise.
      * If neither is possible, e.g. on some kind of failure, resolve the unaltered request.
      *
-     * @param RequestInterface $request
-     * @param array $options
-     * @param string $transactionId
+     * @param  RequestInterface            $request
+     * @param  array                       $options
+     * @param  string                      $transactionId
      * @return CancellablePromiseInterface
      */
     public function pre(
@@ -41,9 +41,9 @@ interface MiddlewareInterface
     /**
      * Return the processed $response via a promise.
      *
-     * @param ResponseInterface $response
-     * @param array $options
-     * @param string $transactionId
+     * @param  ResponseInterface           $response
+     * @param  array                       $options
+     * @param  string                      $transactionId
      * @return CancellablePromiseInterface
      */
     public function post(
@@ -56,9 +56,9 @@ interface MiddlewareInterface
      * Transform the throwable into another throwable or exception,
      * but never turn it into a successful promise again.
      *
-     * @param Throwable $throwable
-     * @param array $options
-     * @param string $transactionId
+     * @param  Throwable                   $throwable
+     * @param  array                       $options
+     * @param  string                      $transactionId
      * @return CancellablePromiseInterface
      */
     public function error(
