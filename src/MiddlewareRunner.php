@@ -2,7 +2,7 @@
 
 namespace ApiClients\Foundation\Middleware;
 
-use ApiClients\Foundation\Middleware\Annotation\Priority as PriorityAnnotation;
+use ApiClients\Foundation\Middleware\Annotation\PriorityInterface;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -132,12 +132,13 @@ final class MiddlewareRunner
     private function getPriority(string $method, MiddlewareInterface $middleware): int
     {
         $methodReflection = new ReflectionMethod($middleware, $method);
-        /** @var PriorityAnnotation $annotation */
-        $annotation = $this->annotationReader->getMethodAnnotation($methodReflection, PriorityAnnotation::class);
+        $annotations = $this->annotationReader->getMethodAnnotations($methodReflection);
 
-        if ($annotation !== null &&
-            get_class($annotation) === PriorityAnnotation::class
-        ) {
+        foreach ($annotations as $annotation) {
+            if (!is_subclass_of($annotation, PriorityInterface::class)) {
+                continue;
+            }
+
             return $annotation->priority();
         }
 
