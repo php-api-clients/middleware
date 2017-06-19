@@ -4,6 +4,8 @@ namespace ApiClients\Tests\Foundation\Middleware;
 
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use ApiClients\Foundation\Middleware\MiddlewareRunner;
+use ApiClients\Tests\Foundation\Middleware\TestMiddlewares\OneMiddleware;
+use ApiClients\Tests\Foundation\Middleware\TestMiddlewares\TwoMiddleware;
 use ApiClients\Tools\TestUtilities\TestCase;
 use Closure;
 use Exception;
@@ -68,12 +70,51 @@ class MiddlewareRunnerTest extends TestCase
             Phake::verify($middlewareOne)->pre($request, $options, $id),
             Phake::verify($middlewareTwo)->pre($request, $options, $id),
             Phake::verify($middlewareThree)->pre($request, $options, $id),
-            Phake::verify($middlewareThree)->post($response, $options, $id),
-            Phake::verify($middlewareTwo)->post($response, $options, $id),
             Phake::verify($middlewareOne)->post($response, $options, $id),
+            Phake::verify($middlewareTwo)->post($response, $options, $id),
+            Phake::verify($middlewareThree)->post($response, $options, $id),
             Phake::verify($middlewareOne)->error($exception, $options, $id),
             Phake::verify($middlewareTwo)->error($exception, $options, $id),
             Phake::verify($middlewareThree)->error($exception, $options, $id)
         );
+    }
+
+    public function testAnnotations()
+    {
+        $loop = Factory::create();
+        $request = new Request('GET', 'https://example.com/');
+        $response = new Response(200);
+        $exception = new Exception();
+        $options = [];
+
+        $middlewareOne = new OneMiddleware();
+        $middlewareTwo = new TwoMiddleware();
+
+        $args = [
+            $options,
+            $middlewareOne,
+            $middlewareTwo,
+        ];
+
+        $executioner = new MiddlewareRunner(...$args);
+        self::assertSame($request, await($executioner->pre($request), $loop));
+        self::assertSame($response, await($executioner->post($response), $loop));
+        try {
+            await($executioner->error($exception), $loop);
+        } catch (Throwable $throwable) {
+            self::assertSame($exception, $throwable);
+        }
+
+        $calls = array_merge_recursive($middlewareOne->getCalls(), $middlewareTwo->getCalls());
+        ksort($calls);
+
+        self::assertSame([
+            TwoMiddleware::class . ':pre',
+            OneMiddleware::class . ':pre',
+            OneMiddleware::class . ':post',
+            TwoMiddleware::class . ':post',
+            OneMiddleware::class . ':error',
+            TwoMiddleware::class . ':error',
+        ], array_values($calls));
     }
 }

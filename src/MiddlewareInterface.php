@@ -13,8 +13,10 @@ use Throwable;
 interface MiddlewareInterface
 {
     /**
-     * Priority ranging from 0 to 1000. Where 1000 will be executed first on `pre` and 0 last on `pre`.
-     * For `post` the order is reversed.
+     * Priority ranging from 0 to 1000. Where 1000 will be executed first on `pre`/`post`/`error`
+     * and 0 last on `pre`/`post`/`error`.
+     *
+     * @deprecated Use annotations for more fine grained control
      *
      * @return int
      */
