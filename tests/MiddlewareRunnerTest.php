@@ -5,6 +5,7 @@ namespace ApiClients\Tests\Foundation\Middleware;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use ApiClients\Foundation\Middleware\MiddlewareRunner;
 use ApiClients\Tests\Foundation\Middleware\TestMiddlewares\OneMiddleware;
+use ApiClients\Tests\Foundation\Middleware\TestMiddlewares\ThreeMiddleware;
 use ApiClients\Tests\Foundation\Middleware\TestMiddlewares\TwoMiddleware;
 use ApiClients\Tools\TestUtilities\TestCase;
 use Closure;
@@ -89,11 +90,13 @@ class MiddlewareRunnerTest extends TestCase
 
         $middlewareOne = new OneMiddleware();
         $middlewareTwo = new TwoMiddleware();
+        $middlewareThree = new ThreeMiddleware();
 
         $args = [
             $options,
             $middlewareOne,
             $middlewareTwo,
+            $middlewareThree,
         ];
 
         $executioner = new MiddlewareRunner(...$args);
@@ -105,15 +108,18 @@ class MiddlewareRunnerTest extends TestCase
             self::assertSame($exception, $throwable);
         }
 
-        $calls = array_merge_recursive($middlewareOne->getCalls(), $middlewareTwo->getCalls());
+        $calls = array_merge_recursive($middlewareOne->getCalls(), $middlewareTwo->getCalls(), $middlewareThree->getCalls());
         ksort($calls);
 
         self::assertSame([
+            ThreeMiddleware::class . ':pre',
             TwoMiddleware::class . ':pre',
             OneMiddleware::class . ':pre',
             OneMiddleware::class . ':post',
             TwoMiddleware::class . ':post',
+            ThreeMiddleware::class . ':post',
             OneMiddleware::class . ':error',
+            ThreeMiddleware::class . ':error',
             TwoMiddleware::class . ':error',
         ], array_values($calls));
     }

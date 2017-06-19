@@ -31,7 +31,10 @@
   "autoload": {
     "psr-4": {
       "ApiClients\\Foundation\\Middleware\\": "src/"
-    }
+    },
+    "files": [
+      "src/bootstrap.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
