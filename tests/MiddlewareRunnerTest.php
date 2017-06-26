@@ -30,11 +30,8 @@ class MiddlewareRunnerTest extends TestCase
         $options = [];
 
         $middlewareOne = Phake::mock(MiddlewareInterface::class);
-        Phake::when($middlewareOne)->priority()->thenReturn(1000);
         $middlewareTwo = Phake::mock(MiddlewareInterface::class);
-        Phake::when($middlewareTwo)->priority()->thenReturn(500);
         $middlewareThree = Phake::mock(MiddlewareInterface::class);
-        Phake::when($middlewareThree)->priority()->thenReturn(0);
         $args = [
             $options,
             $middlewareThree,
@@ -68,15 +65,15 @@ class MiddlewareRunnerTest extends TestCase
         }
 
         Phake::inOrder(
+            Phake::verify($middlewareThree)->pre($request, $options, $id),
             Phake::verify($middlewareOne)->pre($request, $options, $id),
             Phake::verify($middlewareTwo)->pre($request, $options, $id),
-            Phake::verify($middlewareThree)->pre($request, $options, $id),
+            Phake::verify($middlewareThree)->post($response, $options, $id),
             Phake::verify($middlewareOne)->post($response, $options, $id),
             Phake::verify($middlewareTwo)->post($response, $options, $id),
-            Phake::verify($middlewareThree)->post($response, $options, $id),
+            Phake::verify($middlewareThree)->error($exception, $options, $id),
             Phake::verify($middlewareOne)->error($exception, $options, $id),
-            Phake::verify($middlewareTwo)->error($exception, $options, $id),
-            Phake::verify($middlewareThree)->error($exception, $options, $id)
+            Phake::verify($middlewareTwo)->error($exception, $options, $id)
         );
     }
 

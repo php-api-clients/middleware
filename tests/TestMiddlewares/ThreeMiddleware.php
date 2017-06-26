@@ -5,7 +5,6 @@ namespace ApiClients\Tests\Foundation\Middleware\TestMiddlewares;
 use ApiClients\Foundation\Middleware\Annotation\Early;
 use ApiClients\Foundation\Middleware\Annotation\First;
 use ApiClients\Foundation\Middleware\Annotation\Late;
-use ApiClients\Foundation\Middleware\DefaultPriorityTrait;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -16,8 +15,6 @@ use function React\Promise\resolve;
 
 class ThreeMiddleware implements MiddlewareInterface
 {
-    use DefaultPriorityTrait;
-
     private $calls = [];
 
     /**

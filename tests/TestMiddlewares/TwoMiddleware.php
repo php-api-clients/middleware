@@ -2,7 +2,6 @@
 
 namespace ApiClients\Tests\Foundation\Middleware\TestMiddlewares;
 
-use ApiClients\Foundation\Middleware\DefaultPriorityTrait;
 use ApiClients\Foundation\Middleware\MiddlewareInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -13,8 +12,6 @@ use function React\Promise\resolve;
 
 class TwoMiddleware implements MiddlewareInterface
 {
-    use DefaultPriorityTrait;
-
     private $calls = [];
 
     /**

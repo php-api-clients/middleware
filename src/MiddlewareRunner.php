@@ -142,6 +142,6 @@ final class MiddlewareRunner
             return $annotation->priority();
         }
 
-        return $middleware->priority();
+        return Priority::DEFAULT;
     }
 }
