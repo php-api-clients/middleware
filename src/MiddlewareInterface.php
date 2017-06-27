@@ -9,19 +9,12 @@ use Throwable;
 
 /**
  * Middleware, when a new request is made an instance specifically for that request is made for each request.
+ *
+ * Priority ranging from 0 to 1000. Where 1000 will be executed first on `pre`/`post`/`error`
+ * and 0 last on `pre`/`post`/`error`.
  */
 interface MiddlewareInterface
 {
-    /**
-     * Priority ranging from 0 to 1000. Where 1000 will be executed first on `pre`/`post`/`error`
-     * and 0 last on `pre`/`post`/`error`.
-     *
-     * @deprecated Use annotations for more fine grained control
-     *
-     * @return int
-     */
-    public function priority(): int;
-
     /**
      * Return the processed $request via a fulfilled promise.
      * When implementing cache or other feature that returns a response, do it with a rejected promise.
