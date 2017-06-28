@@ -15,8 +15,8 @@ trait PreTrait
      */
     public function pre(
         RequestInterface $request,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface {
         return resolve($request);
     }

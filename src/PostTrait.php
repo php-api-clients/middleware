@@ -15,8 +15,8 @@ trait PostTrait
      */
     public function post(
         ResponseInterface $response,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface {
         return resolve($response);
     }

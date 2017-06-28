@@ -18,7 +18,7 @@ class DummyMiddlewareTest extends TestCase
         $this->assertSame(
             $request,
             await(
-                $middleware->pre($request),
+                $middleware->pre($request, 'abc'),
                 Factory::create()
             )
         );
@@ -31,7 +31,7 @@ class DummyMiddlewareTest extends TestCase
         $this->assertSame(
             $response,
             await(
-                $middleware->post($response),
+                $middleware->post($response, 'abc'),
                 Factory::create()
             )
         );
@@ -44,7 +44,7 @@ class DummyMiddlewareTest extends TestCase
         self::expectException(Exception::class);
         self::expectExceptionMessage('Throwable or anything extending it');
         await(
-            $middleware->error($exception),
+            $middleware->error($exception, 'abc'),
             Factory::create()
         );
     }

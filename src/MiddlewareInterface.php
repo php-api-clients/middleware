@@ -27,8 +27,8 @@ interface MiddlewareInterface
      */
     public function pre(
         RequestInterface $request,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface;
 
     /**
@@ -41,8 +41,8 @@ interface MiddlewareInterface
      */
     public function post(
         ResponseInterface $response,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface;
 
     /**
@@ -56,7 +56,7 @@ interface MiddlewareInterface
      */
     public function error(
         Throwable $throwable,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface;
 }

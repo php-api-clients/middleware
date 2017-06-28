@@ -44,17 +44,17 @@ class MiddlewareRunnerTest extends TestCase
             return $executioner->id;
         }, null, MiddlewareRunner::class)($executioner);
 
-        Phake::when($middlewareOne)->pre($request, $options, $id)->thenReturn(resolve($request));
-        Phake::when($middlewareOne)->post($response, $options, $id)->thenReturn(resolve($response));
-        Phake::when($middlewareOne)->error($exception, $options, $id)->thenReturn(reject($exception));
+        Phake::when($middlewareOne)->pre($request, $id, $options)->thenReturn(resolve($request));
+        Phake::when($middlewareOne)->post($response, $id, $options)->thenReturn(resolve($response));
+        Phake::when($middlewareOne)->error($exception, $id, $options)->thenReturn(reject($exception));
 
-        Phake::when($middlewareTwo)->pre($request, $options, $id)->thenReturn(resolve($request));
-        Phake::when($middlewareTwo)->post($response, $options, $id)->thenReturn(resolve($response));
-        Phake::when($middlewareTwo)->error($exception, $options, $id)->thenReturn(reject($exception));
+        Phake::when($middlewareTwo)->pre($request, $id, $options)->thenReturn(resolve($request));
+        Phake::when($middlewareTwo)->post($response, $id, $options)->thenReturn(resolve($response));
+        Phake::when($middlewareTwo)->error($exception, $id, $options)->thenReturn(reject($exception));
 
-        Phake::when($middlewareThree)->pre($request, $options, $id)->thenReturn(resolve($request));
-        Phake::when($middlewareThree)->post($response, $options, $id)->thenReturn(resolve($response));
-        Phake::when($middlewareThree)->error($exception, $options, $id)->thenReturn(reject($exception));
+        Phake::when($middlewareThree)->pre($request, $id, $options)->thenReturn(resolve($request));
+        Phake::when($middlewareThree)->post($response, $id, $options)->thenReturn(resolve($response));
+        Phake::when($middlewareThree)->error($exception, $id, $options)->thenReturn(reject($exception));
 
         self::assertSame($request, await($executioner->pre($request), $loop));
         self::assertSame($response, await($executioner->post($response), $loop));
@@ -65,15 +65,15 @@ class MiddlewareRunnerTest extends TestCase
         }
 
         Phake::inOrder(
-            Phake::verify($middlewareThree)->pre($request, $options, $id),
-            Phake::verify($middlewareOne)->pre($request, $options, $id),
-            Phake::verify($middlewareTwo)->pre($request, $options, $id),
-            Phake::verify($middlewareThree)->post($response, $options, $id),
-            Phake::verify($middlewareOne)->post($response, $options, $id),
-            Phake::verify($middlewareTwo)->post($response, $options, $id),
-            Phake::verify($middlewareThree)->error($exception, $options, $id),
-            Phake::verify($middlewareOne)->error($exception, $options, $id),
-            Phake::verify($middlewareTwo)->error($exception, $options, $id)
+            Phake::verify($middlewareThree)->pre($request, $id, $options),
+            Phake::verify($middlewareOne)->pre($request, $id, $options),
+            Phake::verify($middlewareTwo)->pre($request, $id, $options),
+            Phake::verify($middlewareThree)->post($response, $id, $options),
+            Phake::verify($middlewareOne)->post($response, $id, $options),
+            Phake::verify($middlewareTwo)->post($response, $id, $options),
+            Phake::verify($middlewareThree)->error($exception, $id, $options),
+            Phake::verify($middlewareOne)->error($exception, $id, $options),
+            Phake::verify($middlewareTwo)->error($exception, $id, $options)
         );
     }
 

@@ -33,8 +33,8 @@ class ThreeMiddleware implements MiddlewareInterface
      */
     public function pre(
         RequestInterface $request,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':pre';
@@ -50,8 +50,8 @@ class ThreeMiddleware implements MiddlewareInterface
      */
     public function post(
         ResponseInterface $response,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':post';
@@ -67,8 +67,8 @@ class ThreeMiddleware implements MiddlewareInterface
      */
     public function error(
         Throwable $throwable,
-        array $options = [],
-        string $transactionId = null
+        string $transactionId,
+        array $options = []
     ): CancellablePromiseInterface {
         usleep(100);
         $this->calls[(string)microtime(true)] = __CLASS__ . ':error';

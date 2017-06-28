@@ -62,7 +62,7 @@ final class MiddlewareRunner
         foreach ($middlewares as $middleware) {
             $requestMiddleware = $middleware;
             $promise = $promise->then(function (RequestInterface $request) use ($requestMiddleware) {
-                return $requestMiddleware->pre($request, $this->options, $this->id);
+                return $requestMiddleware->pre($request, $this->id, $this->options);
             });
         }
 
@@ -84,7 +84,7 @@ final class MiddlewareRunner
         foreach ($middlewares as $middleware) {
             $responseMiddleware = $middleware;
             $promise = $promise->then(function (ResponseInterface $response) use ($responseMiddleware) {
-                return $responseMiddleware->post($response, $this->options, $this->id);
+                return $responseMiddleware->post($response, $this->id, $this->options);
             });
         }
 
@@ -106,7 +106,7 @@ final class MiddlewareRunner
         foreach ($middlewares as $middleware) {
             $errorMiddleware = $middleware;
             $promise = $promise->then(null, function (Throwable $throwable) use ($errorMiddleware) {
-                return reject($errorMiddleware->error($throwable, $this->options, $this->id));
+                return reject($errorMiddleware->error($throwable, $this->id, $this->options));
             });
         }
 
