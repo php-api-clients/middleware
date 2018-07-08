@@ -14,6 +14,12 @@ use function React\Promise\resolve;
 
 final class MiddlewareRunner
 {
+    const TRAITS = [
+        'pre'   => PreTrait::class,
+        'post'  => PostTrait::class,
+        'error' => ErrorTrait::class,
+    ];
+
     /**
      * @var array
      */
@@ -122,6 +128,9 @@ final class MiddlewareRunner
      */
     protected function orderMiddlewares(string $method, MiddlewareInterface ...$middlewares): array
     {
+        $middlewares = array_filter($middlewares, function (MiddlewareInterface $middleware) use ($method) {
+            return !isset(class_uses($middleware)[self::TRAITS[$method]]);
+        });
         usort($middlewares, function (MiddlewareInterface $left, MiddlewareInterface $right) use ($method) {
             return $this->getPriority($method, $right) <=> $this->getPriority($method, $left);
         });
