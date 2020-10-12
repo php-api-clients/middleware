@@ -4,21 +4,21 @@ namespace ApiClients\Foundation\Middleware;
 
 use React\Promise\CancellablePromiseInterface;
 use Throwable;
-use function React\Promise\reject;
 
-trait ErrorTrait
+interface ErrorMiddlewareInterface
 {
     /**
+     * Transform the throwable into another throwable or exception,
+     * but never turn it into a successful promise again.
+     *
      * @param  Throwable                   $throwable
      * @param  array                       $options
+     * @param  string                      $transactionId
      * @return CancellablePromiseInterface
-     * @deprecated Will be removed in the next major version.
      */
     public function error(
         Throwable $throwable,
         string $transactionId,
         array $options = []
-    ): CancellablePromiseInterface {
-        return reject($throwable);
-    }
+    ): CancellablePromiseInterface;
 }

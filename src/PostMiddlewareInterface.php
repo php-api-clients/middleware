@@ -4,21 +4,20 @@ namespace ApiClients\Foundation\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\CancellablePromiseInterface;
-use function React\Promise\resolve;
 
-trait PostTrait
+interface PostMiddlewareInterface
 {
     /**
+     * Return the processed $response via a promise.
+     *
      * @param  ResponseInterface           $response
      * @param  array                       $options
+     * @param  string                      $transactionId
      * @return CancellablePromiseInterface
-     * @deprecated Will be removed in the next major version.
      */
     public function post(
         ResponseInterface $response,
         string $transactionId,
         array $options = []
-    ): CancellablePromiseInterface {
-        return resolve($response);
-    }
+    ): CancellablePromiseInterface;
 }
